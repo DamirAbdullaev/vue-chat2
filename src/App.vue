@@ -1,13 +1,29 @@
 <template>
   <div class="body">
-    <Alex />
+    <Alex :basees="basees"/>
+    <Eva :basees="basees"/>
   </div>
 </template>
 
 <script>
 import Alex from './components/Alex.vue'
+import Eva from './components/Eva.vue'
   export default {
-  components: { Alex },
+  components: { Alex, Eva },
+
+
+    data() {
+      return {
+        basees: [
+          {name: 'Ева', url: '', text: 'Привет. Как дела? Где ты изучаешь программирование?', time: '13:23'},
+          {name: 'Александр', url: '', text: 'Привет. Нормально. Как у тебя дела? Я учусь в учебном центре PROWEB', time: '13:23'},
+          ],  
+      }
+    },
+
+    methods: {
+      
+    },
     
   }
 </script>

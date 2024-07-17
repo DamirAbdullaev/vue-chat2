@@ -9,34 +9,29 @@
       </div>
   
       <div class="phone__main">
-        <div class="phone__main_sms">
+        <div :class="{active: base.name == 'Александр'}" v-for="(base, i) in basees" :key="i" class="phone__main_sms">
           <p class="phone__main_sms-text">
-            <img src="@/assets/img/test_img.jpg" alt="test_img">
-            Привет. Как дела? Где ты изучаешь программирование?</p>
-          <span class="phone__main_sms-time">12:21</span>
-        </div>
-        <div class="phone__main_sms active">
-          <p class="phone__main_sms-text">
-            <img src="@/assets/img/test_img.jpg" alt="test_img">
-            Привет. Нормально. Как у тебя дела? Я учусь в учебном центре PROWEB</p>
-          <span class="phone__main_sms-time">12:21</span>
+            <img v-if="base.url" :src="base.url" alt="test_img">{{ base.text }}</p>
+          <span class="phone__main_sms-time">{{ base.time }}</span>
         </div>
       </div>
   
       <div class="phone__footer">
-        <form class="phone__footer_form">
+        <form @submit.prevent="" class="phone__footer_form">
           <textarea ref="messageTextarea" v-model="message" placeholder="Написать сообщение..." :style="{ height: textareaHeight }"></textarea>
-          <button v-if="message"><img src="@/assets/img/send.svg" alt="send"></button>
+          <button @click="sendDataToParent" v-if="message"><img src="@/assets/img/send.svg" alt="send"></button>
           <button v-else><img src="@/assets/img/photoaparat.svg" alt="photoaparat"></button>
         </form>
       </div>
     </div>
   </template>
-  
+   
   <script>
   export default {
     data() {
       return {
+        name: 'Александр',
+        url: '',
         message: '',
         textareaHeight: '56px', 
         maxTextareaHeight: 150,
@@ -49,6 +44,11 @@
             textarea.style.height = '56px';
             textarea.style.height = Math.min(textarea.scrollHeight, this.maxTextareaHeight) + 'px';
             this.textareaHeight = textarea.style.height;
+        },
+
+        sendDataToParent() {
+            this.basees.push({ name: this.name, url: this.url, time: new Date().getHours() + ':' + new Date().getMinutes(), text: this.message });
+            this.message = ''
         }
     },
 
@@ -56,6 +56,12 @@
       message() {
         this.$nextTick(this.updateTextareaHeight);
       }
+    },
+
+    props: {
+        basees: {
+            typeof: Array
+        }
     }
   };
 
