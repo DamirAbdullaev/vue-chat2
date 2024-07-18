@@ -1,8 +1,8 @@
 <template>
   <div class="body">
-    <Alex :basees="basees" />
-    <Eva :basees="basees" />
-    <Modal />
+    <Alex :basees="basees" @toggle="toggle = $event" @name="name = $event"/>
+    <Eva :basees="basees" @toggle="toggle = $event" @name="name = $event"/>
+    <Modal :basees="basees" :toggle="toggle" @toggle="toggle = $event" :name="name"/>
   </div>
 </template>
 
@@ -20,6 +20,9 @@ export default {
         { name: 'Ева', url: '', text: 'Привет. Как дела? Где ты изучаешь программирование?', time: '13:23' },
         { name: 'Александр', url: '', text: 'Привет. Нормально. Как у тебя дела? Я учусь в учебном центре PROWEB', time: '13:23' },
       ],
+
+      toggle: false,
+      name: '',
     }
   },
 

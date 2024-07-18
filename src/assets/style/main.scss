@@ -23,6 +23,24 @@
     position: relative;
 }
 
+
+// Определите миксин для анимации
+@mixin fadeInAnimation($duration: 0.5s) {
+    animation: fadeIn $duration forwards;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9); /* Элемент начинает ниже */
+    }
+    to {
+      opacity: 1;
+      transform: scale(1); /* Элемент на месте */
+    }
+  }
+
+
 .phone{
     max-width: 400px;
     width: 100%;
@@ -71,6 +89,8 @@
             align-items: end;
             gap: 5px;
 
+            @include fadeInAnimation(0.5s); /* Применяем анимацию */
+
             &.active {
                 flex-direction: row-reverse;
             }
@@ -111,7 +131,7 @@
 
         padding: 10px 0;
 
-        bottom: -56px;
+        bottom: -77px;
         left: 0;
         width: 100%;
         position: absolute;

@@ -23,7 +23,7 @@
                 <textarea ref="messageTextarea" v-model="message" placeholder="Написать сообщение..."
                     :style="{ height: textareaHeight }"></textarea>
                 <button @click="sendDataToParent" v-if="message"><img src="@/assets/img/send.svg" alt="send"></button>
-                <button v-else><img src="@/assets/img/photoaparat.svg" alt="photoaparat"></button>
+                <button @click="$emit('toggle', true), $emit('name', 'Ева')" v-else><img src="@/assets/img/photoaparat.svg" alt="photoaparat"></button>
             </form>
         </div>
     </div>
@@ -33,7 +33,7 @@
 export default {
     data() {
         return {
-            name: 'sda',
+            name: 'Ева',
             url: '',
             message: '',
             textareaHeight: '56px',
@@ -64,6 +64,10 @@ export default {
     props: {
         basees: {
             typeof: Array
+        },
+
+        toggle: {
+            typeof: Boolean
         }
     }
 };
@@ -71,11 +75,26 @@ export default {
 </script>
 
 <style scoped>
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9); /* Элемент начинает ниже */
+    }
+    to {
+      opacity: 1;
+      transform: scale(1); /* Элемент на месте */
+    }
+  }
+
+
 .phone__main_sms1 {
     display: flex;
     align-items: end;
     flex-direction: row-reverse;
     gap: 5px;
+
+    animation: fadeIn 0.5s forwards; /* Применяем анимацию */
 }
 
 .phone__main_sms-text1 {
@@ -106,6 +125,7 @@ export default {
     background: #c4bfff;
     border-radius: 15px 15px 15px 0;
 }
+
 
 
 </style>
