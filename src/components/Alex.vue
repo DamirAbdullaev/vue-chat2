@@ -20,7 +20,7 @@
         <form @submit.prevent="" class="phone__footer_form">
           <textarea ref="messageTextarea" v-model="message" placeholder="Написать сообщение..." :style="{ height: textareaHeight }"></textarea>
           <button @click="sendDataToParent" v-if="message"><img src="@/assets/img/send.svg" alt="send"></button>
-          <button v-else><img src="@/assets/img/photoaparat.svg" alt="photoaparat"></button>
+          <button @click="$emit('toggle', true), $emit('name', 'Александр')" v-else><img src="@/assets/img/photoaparat.svg" alt="photoaparat"></button>
         </form>
       </div>
     </div>
@@ -49,7 +49,7 @@
         sendDataToParent() {
             this.basees.push({ name: this.name, url: this.url, time: new Date().getHours() + ':' + new Date().getMinutes(), text: this.message });
             this.message = ''
-        }
+        },
     },
 
     watch: {
@@ -61,7 +61,7 @@
     props: {
         basees: {
             typeof: Array
-        }
+        },
     }
   };
 
